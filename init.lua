@@ -206,11 +206,7 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
 -- Keymap for Typst preview
-
-vim.keymap.set('n', '<leader>tp', function()
-  vim.fn.jobstart({ 'tinymist', 'preview', '--open' }, { detach = true })
-  vim.notify('Opening Typst preview in browser...', vim.log.levels.INFO)
-end, { desc = '[T]ypst [P]review (Open in browser)' })
+vim.keymap.set('n', '<leader>tp', '<cmd>TypstPreviewToggle<CR>', { desc = '[T]ypst [P]review Toggle' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
