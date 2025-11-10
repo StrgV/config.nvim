@@ -792,6 +792,16 @@ require('lazy').setup({
           }
         end
       end,
+      formatters = {
+        prettier = {
+          -- force spaces
+          prepend_args = {
+            '--no-editorconfig',
+            '--use-tabs=false',
+            '--tab-width=2',
+          },
+        },
+      },
       formatters_by_ft = {
         lua = { 'stylua' },
         svelte = { 'prettier' },
