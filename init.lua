@@ -268,6 +268,12 @@ require('lazy').setup({
   -- Typst-preview
   'chomosuke/typst-preview.nvim',
 
+  -- Autopairs
+  {
+    'windwp/nvim-autopairs',
+    event = 'InsertEnter',
+    config = true,
+  },
   -- Alternatively, use `config = function() ... end` for full control over the configuration.
   -- If you prefer to call `setup` explicitly, use:
   --    {
