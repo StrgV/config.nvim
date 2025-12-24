@@ -702,6 +702,17 @@ require('lazy').setup({
           },
         },
 
+        gopls = {
+          settings = {
+            gopls = {
+              analyses = {
+                unusedparams = true,
+              },
+              staticcheck = true,
+              gofumpt = true, -- Optional: helps with stricter formatting
+            },
+          },
+        },
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
@@ -815,6 +826,7 @@ require('lazy').setup({
         typescript = { 'prettier' },
         html = { 'prettier' },
         css = { 'prettier' },
+        go = { 'goimports', 'gofumpt' },
         -- Conform can also run multiple formatters sequentially
         python = { 'isort', 'black' },
         -- You can use 'stop_after_first' to run the first available formatter from the list
@@ -881,7 +893,7 @@ require('lazy').setup({
         -- <c-k>: Toggle signature help
         --
         -- See :h blink-cmp-config-keymap for defining your own keymap
-        preset = 'default',
+        preset = 'super-tab',
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
