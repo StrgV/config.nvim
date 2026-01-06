@@ -696,8 +696,8 @@ require('lazy').setup({
           },
         },
 
-        ltex = {
-          cmd = {"ltex-ls-plus"},
+        ltex_plus = {
+          cmd = { 'ltex-ls-plus' },
           filetypes = { 'markdown', 'tex', 'bib', 'typst' },
           settings = {
             ltex = {
