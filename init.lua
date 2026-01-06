@@ -696,6 +696,21 @@ require('lazy').setup({
           },
         },
 
+        ltex = {
+          cmd = {"ltex-ls-plus"},
+          filetypes = { 'markdown', 'tex', 'bib', 'typst' },
+          settings = {
+            ltex = {
+              language = 'de-DE',
+              enabled = { 'markdown', 'tex', 'bib', 'typst' },
+              additionalRules = {
+                enablePickyRules = true,
+                motherTongue = 'de-DE',
+              },
+            },
+          },
+        },
+
         gopls = {
           settings = {
             gopls = {
