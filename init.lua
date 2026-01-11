@@ -213,6 +213,9 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- Keymap for Typst preview
 vim.keymap.set('n', '<leader>tp', '<cmd>TypstPreviewToggle<CR>', { desc = '[T]ypst [P]review Toggle' })
 
+-- Keymaps for pinning the main typst file
+-- Autocommands for Typst specific settings
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -224,6 +227,41 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
     vim.hl.on_yank()
+  end,
+})
+
+-- Force ltex_extra to load for ltex_plus
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('ltex-extra-fix', { clear = true }),
+  callback = function(event)
+    local client = vim.lsp.get_client_by_id(event.data.client_id)
+
+    -- Prüfen, ob es der richtige Server ist
+    if client and (client.name == 'ltex_plus' or client.name == 'ltex') then
+      -- 1. Plugin laden
+      local success, ltex_extra = pcall(require, 'ltex_extra')
+      if not success then
+        return
+      end
+
+      -- 2. Dem Plugin vorgaukeln, es sei der normale "ltex" (wichtig für ltex_plus!)
+      local real_name = client.name
+      client.name = 'ltex'
+
+      -- 3. Plugin Setup ausführen
+      ltex_extra.setup {
+        load_langs = { 'de-DE', 'en-US' },
+        init_check = true,
+        path = '.ltex', -- Pfad für die Wörterbücher
+        log_level = 'info',
+      }
+
+      -- 4. Name zurücksetzen (Sauberkeit)
+      client.name = real_name
+
+      -- Bestätigung im Command-Bereich ausgeben (kannst du später löschen)
+      vim.notify('ltex_extra erfolgreich in ' .. real_name .. ' injiziert!', vim.log.levels.INFO)
+    end
   end,
 })
 
@@ -697,7 +735,6 @@ require('lazy').setup({
         },
 
         ltex_plus = {
-          cmd = { 'ltex-ls-plus' },
           filetypes = { 'markdown', 'tex', 'bib', 'typst' },
           settings = {
             ltex = {
