@@ -213,8 +213,10 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- Keymap for Typst preview
 vim.keymap.set('n', '<leader>tp', '<cmd>TypstPreviewToggle<CR>', { desc = '[T]ypst [P]review Toggle' })
 
--- Keymaps for pinning the main typst file
--- Autocommands for Typst specific settings
+-- Keymaps for tiny-code-action
+vim.keymap.set({ 'n', 'x' }, '<leader>ca', function()
+  require('tiny-code-action').code_action {}
+end, { noremap = true, silent = true, desc = 'View [C]ode [A]ctions' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
